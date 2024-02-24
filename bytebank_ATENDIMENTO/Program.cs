@@ -27,5 +27,22 @@ void TestingGettingHighestBalanceAccount()
     data.GetAccountHighestBalance();
     data.GetListOfCheckingAccountsRegistered();
 }
-TestingGettingHighestBalanceAccount();
 
+void TestingGettinAccountByIndex()
+{
+    CheckingAccountData data = new CheckingAccountData();
+    ContaCorrente conta1 = new ContaCorrente(123, "3429342-a");
+    ContaCorrente conta2 = new ContaCorrente(323, "4323423-b");
+    ContaCorrente conta3 = new ContaCorrente(534, "2342399-z");
+    data.Add(conta1);
+    data.Add(conta2);
+    data.Add(conta3);
+
+    for(int i = 0; i < data.Size; i++)
+    {
+        ContaCorrente account = data.GetAccountByIndex(i);
+        Console.WriteLine($"Index [{i}] = {account.Conta}/{account.Numero_agencia}");
+    }
+}
+
+TestingGettinAccountByIndex();

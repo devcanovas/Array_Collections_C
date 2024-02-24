@@ -17,7 +17,13 @@ internal class CheckingAccountData
     {
         for(int i = 0; i < _items.Length; i++)
         {
-            _items[i].ToString();
+            if (_items[i] != null)
+            {
+                ContaCorrente checkingAccount = _items[i];
+                Console.WriteLine($" Inidice [{i}] = " +
+                    $"Conta : {checkingAccount.Conta}" +
+                    $"N° da Agência: {checkingAccount.Numero_agencia}");
+            }
         }
     }
 
@@ -63,22 +69,47 @@ internal class CheckingAccountData
 
     public void Remove(ContaCorrente account)
     {
-        int indiceItem = -1;
+        int indexItem = -1;
         for (int i = 0; i <_nextPosition; i++)
         {
             ContaCorrente actualAccount = _items[i];
             if (actualAccount == account)
             {
-                indiceItem = i;
+                indexItem = i;
                 break;
             }
         }
 
-        for(int i = indiceItem; i < _nextPosition; i++)
+        for(int i = indexItem; i < _nextPosition; i++)
         {
             _items[i] = _items[i + 1];
         }
         _nextPosition--;
         _items[_nextPosition] = null;
+    }
+
+    public ContaCorrente GetAccountByIndex(int index)
+    {
+        if (index < 0 || index >= _nextPosition)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index));
+        }
+        return _items[index];
+    }
+
+    public  int Size
+    {
+        get
+        {
+            return _nextPosition;
+        }
+    }
+
+    public ContaCorrente this[int index]
+    {
+        get
+        {
+            return GetAccountByIndex(index); 
+        }
     }
 }
